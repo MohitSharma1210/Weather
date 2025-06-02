@@ -1,5 +1,6 @@
-package com.example.weather
+package com.example.weather.utlis
 
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -15,7 +16,7 @@ object DateUtil {
                 return outputDateFormat.format(date)
             }
         } catch (e: Exception) {
-
+            Timber.e(e)
         }
         return this
     }

@@ -18,6 +18,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_KEY", "\"3818375508e64c5cb73152301250106\"")
+
     }
 
     buildTypes {
@@ -35,6 +38,7 @@ android {
     }
     buildFeatures {
         compose true
+        buildConfig = true
     }
 }
 
@@ -66,6 +70,10 @@ dependencies {
 
     implementation libs.coroutines.core
     implementation libs.coroutines.android
+
+    implementation libs.timber
+    implementation(libs.okhttp3.logging.interceptor)
+
 
 
 

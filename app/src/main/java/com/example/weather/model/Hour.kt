@@ -1,4 +1,4 @@
-package com.example.weather
+package com.example.weather.model
 
 data class Hour(
     val time: String,
