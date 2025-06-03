@@ -3,4 +3,6 @@
     <string name="forecast">Forecast</string>
     <string name="temperature_value_in_celsius">%1$s°</string>
     <string name="icon_image_url">https:%1$s</string>
+    <string name="retry">Retry</string>
+
 </resources>

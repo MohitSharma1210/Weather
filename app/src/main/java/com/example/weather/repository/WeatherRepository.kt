@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 class WeatherRepository @Inject constructor(
     private val weatherAPI: WeatherAPI,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val dispatcher: CoroutineDispatcher
     ) {
      fun getWeatherForecast(city: String): Flow<Result<Weather>> = flow {
         print("WeatherRepository called")

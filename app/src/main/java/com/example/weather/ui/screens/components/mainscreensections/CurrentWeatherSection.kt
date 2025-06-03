@@ -1,5 +1,6 @@
 package com.example.weather.ui.screens.components.mainscreensections
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,47 +15,68 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.weather.R
+import com.example.weather.utlis.DateUtil.toFormattedDate
+import com.example.weather.utlis.UiState
 import com.example.weather.viewmodel.WeatherViewModel
+import java.util.Locale
 
 @Composable
-fun CurrentWeatherSection(viewModel: WeatherViewModel) {
+fun CurrentWeatherSection(viewModel: WeatherViewModel, uiState:UiState) {
+    val weatherData = (uiState as UiState.Success).data
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Tokyo",
+            text = weatherData.name,
             fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White,
             modifier = Modifier.padding(top = 15.dp)
         )
         Text(
-            text = "Oct 16",
+            text = weatherData.date.toFormattedDate(),
             fontSize = 15.sp,
             fontWeight = FontWeight.Normal,
             color = Color.White
         )
-        Image(
-            painter = painterResource(id = R.drawable.ic_placeholder),
+        Log.d("Radhe", weatherData.condition.icon)
+        AsyncImage(
+            modifier = Modifier.size(64.dp),
+            model = stringResource(
+                R.string.icon_image_url,
+                weatherData.condition.icon,
+            ),
+            contentScale = ContentScale.FillBounds,
             contentDescription = null,
-            modifier = Modifier.size(80.dp)
+            error = painterResource(id = R.drawable.ic_placeholder),
+            placeholder = painterResource(id = R.drawable.ic_placeholder),
         )
-        val temperature = 19
         Text(
-            text = "$temperature°",
+            text = stringResource(
+                R.string.temperature_value_in_celsius,
+                weatherData.temperature,
+            ),
             fontSize = 25.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White
         )
         Text(
-            "Partly cloudy\nFeels like 14°C",
+            "Partly cloudy\nFeels like ${
+                stringResource(
+                    R.string.temperature_value_in_celsius,
+                    weatherData.feelsLike,
+                )
+            }",
             textAlign = TextAlign.Center,
             color = Color.White,
             fontSize = 13.sp,
@@ -75,7 +97,7 @@ fun CurrentWeatherSection(viewModel: WeatherViewModel) {
                     contentDescription = null
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("05:48 am", color = Color.White)
+                Text(weatherData.forecasts[0].sunrise.lowercase(Locale.US), color = Color.White)
             }
 
             Row(
@@ -86,7 +108,7 @@ fun CurrentWeatherSection(viewModel: WeatherViewModel) {
                     contentDescription = null
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("05:05 pm", color = Color.White)
+                Text(weatherData.forecasts[0].sunset.lowercase(Locale.US), color = Color.White)
             }
         }
     }
