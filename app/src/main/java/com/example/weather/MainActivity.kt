@@ -13,8 +13,10 @@ import androidx.compose.ui.Modifier
 
 import com.example.weather.ui.screens.components.DefaultAppBar
 import com.example.weather.ui.screens.MainScreen
+import com.example.weather.ui.screens.WeatherScreen
 import com.example.weather.ui.theme.WeatherTheme
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -23,20 +25,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             WeatherTheme {
-                Scaffold(
-                    topBar = { DefaultAppBar() },
-                    content = { paddingValues ->
-                        Surface(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(paddingValues),
-                            color = MaterialTheme.colorScheme.background,
-                        ) {
-
-                            MainScreen()
-                        }
-                    },
-                )
+              WeatherScreen()
             }
         }
     }

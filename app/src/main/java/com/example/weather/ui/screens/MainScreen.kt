@@ -25,7 +25,7 @@ import com.example.weather.utlis.UiState
 import com.example.weather.viewmodel.WeatherViewModel
 
 @Composable
-fun MainScreen(viewModel: WeatherViewModel = hiltViewModel()) {
+fun MainScreen(viewModel: WeatherViewModel) {
    val uiState: UiState by viewModel.uiState.collectAsStateWithLifecycle()
     Column(
         modifier = Modifier
